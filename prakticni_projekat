@@ -1,0 +1,309 @@
+int g = 2;
+int f = 3;
+int a = 4;
+int b = 5;
+int e = 6;
+int d = 7;
+int c = 8;
+
+int d1 = 16;
+int d2 = 17;
+int d3 = 12;
+int d4 = 13;
+int d5 = 14;
+int d6 = 15;
+
+/*const int  buttonPin = 18;
+int loadbt, nextbt;*/
+
+int k;
+int disp1, disp2, disp3, disp4, disp5, disp6;
+
+
+void setup() {
+
+  pinMode(d1, OUTPUT);
+  pinMode(d2, OUTPUT); 
+  pinMode(d3, OUTPUT);
+  pinMode(d4, OUTPUT);
+  pinMode(d5, OUTPUT);
+  pinMode(d6, OUTPUT);
+  pinMode(a, OUTPUT);
+  pinMode(b, OUTPUT); 
+  pinMode(c, OUTPUT); 
+  pinMode(d, OUTPUT); 
+  pinMode(e, OUTPUT); 
+  pinMode(f, OUTPUT); 
+  pinMode(g, OUTPUT);
+//  pinMode(buttonPin, INPUT);
+
+}
+
+
+/*void loop() {
+  for(k = 0; k <= 10; k++) { 
+    loadbt = digitalRead(buttonPin);
+    if(loadbt == HIGH){
+      nextbt = 1;
+    }
+    if(nextbt == 1)
+    {
+        if(k == 1){
+          k = 0;
+          disp1++;
+        }
+        clearLEDs();
+        pick_display(1);
+        chose_digit(disp1);
+        delayMicroseconds(1600);
+        if(disp1 == 10){
+          disp1 = 0;
+          disp2++;
+        }
+        clearLEDs();
+        pick_display(2);
+        chose_digit(disp2);
+        delayMicroseconds(1600);
+        if(disp2 == 10) {
+          disp2 = 0;
+          disp3++;
+        }
+        clearLEDs();
+        pick_display(3);
+        chose_digit(disp3);
+        delayMicroseconds(1600);
+        if(disp3 == 10) {
+          disp3 = 0;
+          disp4++;
+        }
+        clearLEDs();
+        pick_display(4);
+        chose_digit(disp4);
+        delayMicroseconds(1600);
+        if (disp4 == 6) {
+          disp4 = 0;
+          disp5++;
+        }
+        clearLEDs();
+        pick_display(5);
+        chose_digit(disp5);
+        delayMicroseconds(1600);
+        if (disp5 == 10) {
+          disp5 = 0;
+          disp6++;
+        }
+        clearLEDs();
+        pick_display(6);
+        chose_digit(disp6);
+        delayMicroseconds(1600);
+        if(disp6 == 6) {
+          disp6 = 0;
+        }
+     }
+     else {
+       clearLEDs();
+     }
+  }
+}*/
+
+void pick_display(int digit) {
+  digitalWrite(d1, LOW);
+  digitalWrite(d2, LOW);
+  digitalWrite(d3, LOW);
+  digitalWrite(d4, LOW);
+  digitalWrite(d5, LOW);
+  digitalWrite(d6, LOW);
+
+  switch(digit){
+  case 1:
+      digitalWrite(d1, HIGH);
+      break;
+   case 2:
+      digitalWrite(d2, HIGH);
+      break;
+   case 3:
+      digitalWrite(d3, HIGH);
+      break;
+   case 4:
+      digitalWrite(d4, HIGH);
+      break;
+   case 5:
+      digitalWrite(d5, HIGH);
+      break;
+   default:
+      digitalWrite(d6, HIGH);
+      break;
+  }
+  
+}
+
+void chose_digit(char num) {
+  switch(num) {
+    default:
+    digitalWrite(a, HIGH);
+    digitalWrite(b, HIGH);
+    digitalWrite(c, HIGH);
+    digitalWrite(d, HIGH);
+    digitalWrite(e, HIGH);
+    digitalWrite(f, HIGH);
+    digitalWrite(g, LOW);
+    break;
+
+    case 1:
+    digitalWrite(a, LOW);
+    digitalWrite(b, HIGH);
+    digitalWrite(c, HIGH);
+    digitalWrite(d, LOW);
+    digitalWrite(e, LOW);
+    digitalWrite(f, LOW);
+    digitalWrite(g, LOW);
+    break;
+    
+    case 2:
+    digitalWrite(a, HIGH);
+    digitalWrite(b, HIGH);
+    digitalWrite(c, LOW);
+    digitalWrite(d, HIGH);
+    digitalWrite(e, HIGH);
+    digitalWrite(f, LOW);
+    digitalWrite(g, HIGH);
+    break;
+    
+    case 3:
+    digitalWrite(a, HIGH);
+    digitalWrite(b, HIGH);
+    digitalWrite(c, HIGH);
+    digitalWrite(d, HIGH);
+    digitalWrite(e, LOW);
+    digitalWrite(f, LOW);
+    digitalWrite(g, HIGH);
+    break;
+    
+    case 4:
+    digitalWrite(a, LOW);
+    digitalWrite(b, HIGH);
+    digitalWrite(c, HIGH);
+    digitalWrite(d, LOW);
+    digitalWrite(e, LOW);
+    digitalWrite(f, HIGH);
+    digitalWrite(g, HIGH);
+    break;
+    
+    case 5:
+    digitalWrite(a, HIGH);
+    digitalWrite(b, LOW);
+    digitalWrite(c, HIGH);
+    digitalWrite(d, HIGH);
+    digitalWrite(e, LOW);
+    digitalWrite(f, HIGH);
+    digitalWrite(g, HIGH);
+    break;
+    
+    case 6:
+    digitalWrite(a, HIGH);
+    digitalWrite(b, LOW);
+    digitalWrite(c, HIGH);
+    digitalWrite(d, HIGH);
+    digitalWrite(e, HIGH);
+    digitalWrite(f, HIGH);
+    digitalWrite(g, HIGH);
+    break;
+    
+    case 7:
+    digitalWrite(a, HIGH);
+    digitalWrite(b, HIGH);
+    digitalWrite(c, HIGH);
+    digitalWrite(d, LOW);
+    digitalWrite(e, LOW);
+    digitalWrite(f, LOW);
+    digitalWrite(g, LOW);
+    break;
+    
+    case 8:
+    digitalWrite(a, HIGH);
+    digitalWrite(b, HIGH);
+    digitalWrite(c, HIGH);
+    digitalWrite(d, HIGH);
+    digitalWrite(e, HIGH);
+    digitalWrite(f, HIGH);
+    digitalWrite(g, HIGH);
+    break;
+    
+    case 9:
+    digitalWrite(a, HIGH);
+    digitalWrite(b, HIGH);
+    digitalWrite(c, HIGH);
+    digitalWrite(d, HIGH);
+    digitalWrite(e, LOW);
+    digitalWrite(f, HIGH);
+    digitalWrite(g, HIGH);
+    break;
+    
+  }
+}
+
+void clearLEDs() {
+  digitalWrite(a,LOW);
+  digitalWrite(b,LOW);
+  digitalWrite(c,LOW);
+  digitalWrite(d,LOW);
+  digitalWrite(e,LOW);
+  digitalWrite(f,LOW);
+  digitalWrite(g,LOW);
+}
+
+void loop() {
+  for(k = 0; k <= 10; k++) { 
+    if(k == 1){
+      k = 0;
+      disp1++;
+    }
+    clearLEDs();
+    pick_display(1);
+    chose_digit(disp1);
+    delayMicroseconds(1600);
+    if(disp1 == 10){
+      disp1 = 0;
+      disp2++;
+    }
+    clearLEDs();
+    pick_display(2);
+    chose_digit(disp2);
+    delayMicroseconds(1600);
+    if(disp2 == 10) {
+      disp2 = 0;
+      disp3++;
+    }
+    clearLEDs();
+    pick_display(3);
+    chose_digit(disp3);
+    delayMicroseconds(1600);
+    if(disp3 == 10) {
+      disp3 = 0;
+      disp4++;
+    }
+    clearLEDs();
+    pick_display(4);
+    chose_digit(disp4);
+    delayMicroseconds(1600);
+    if (disp4 == 6) {
+       disp4 = 0;
+       disp5++;
+    }
+    clearLEDs();
+    pick_display(5);
+    chose_digit(disp5);
+    delayMicroseconds(1600);
+    if (disp5 == 10) {
+       disp5 = 0;
+       disp6++;
+    }
+    clearLEDs();
+    pick_display(6);
+    chose_digit(disp6);
+    delayMicroseconds(1600);
+    if(disp6 == 6) {
+      disp6 = 0;
+    }
+  }
+}

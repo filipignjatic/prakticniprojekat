@@ -13,8 +13,11 @@ int d4 = 13;
 int d5 = 14;
 int d6 = 15;
 
-/*const int  buttonPin = 18;
-int loadbt, nextbt;*/
+const int buttonStart = 9;
+const int buttonStop = 10;
+const int buttonReset = 11;
+const int buttonLap = 18;
+int loadstart, loadstop, loadreset,loadlap, nextbt;
 
 int k;
 int disp1, disp2, disp3, disp4, disp5, disp6;
@@ -35,28 +38,39 @@ void setup() {
   pinMode(e, OUTPUT); 
   pinMode(f, OUTPUT); 
   pinMode(g, OUTPUT);
-//  pinMode(buttonPin, INPUT);
+  pinMode(buttonStart, INPUT);
+  pinMode(buttonStop, INPUT);
+  pinMode(buttonReset, INPUT);
+  pinMode(buttonLap, INPUT);
 
 }
 
 
-/*void loop() {
+void loop() {
+  loadstart = digitalRead(buttonStart);
+  loadstop = digitalRead(buttonStop);
+  loadreset = digitalRead(buttonReset);
+  loadlap = digitalRead(buttonLap);
+  if(loadstart == HIGH){
+    nextbt = 1;
+  }
   for(k = 0; k <= 10; k++) { 
-    loadbt = digitalRead(buttonPin);
-    if(loadbt == HIGH){
-      nextbt = 1;
-    }
     if(nextbt == 1)
     {
-        if(k == 1){
-          k = 0;
-          disp1++;
+        if(loadstop == HIGH){
+          nextbt = 2;
+          break;
         }
+        if(loadreset == HIGH){
+          nextbt = 0;
+          break;
+        }
+        disp1++;
         clearLEDs();
         pick_display(1);
         chose_digit(disp1);
         delayMicroseconds(1600);
-        if(disp1 == 10){
+        if(k == 10){
           disp1 = 0;
           disp2++;
         }
@@ -100,11 +114,70 @@ void setup() {
           disp6 = 0;
         }
      }
-     else {
+     else if (nextbt == 2){
+       if(loadreset == HIGH){
+          nextbt = 0;
+          break;
+       }
+       pick_display(1);
+       chose_digit(disp1);
+       delayMicroseconds(1600);
        clearLEDs();
+       pick_display(2);
+       chose_digit(disp2);
+       delayMicroseconds(1600);
+       clearLEDs();
+       pick_display(3);
+       chose_digit(disp3);
+       delayMicroseconds(1600);
+       clearLEDs();
+       pick_display(4);
+       chose_digit(disp4);
+       delayMicroseconds(1600);
+       pick_display(5);
+       chose_digit(disp5);
+       delayMicroseconds(1600);
+       pick_display(6);
+       chose_digit(disp6);
+       delayMicroseconds(1600);
+     }
+     else
+     {
+       if(loadstart == HIGH)
+       {
+          nextbt = 1;
+          break;
+       }
+       disp1 = 0;
+       disp2 = 0;
+       disp3 = 0;
+       disp4 = 0;
+       disp5 = 0;
+       disp6 = 0;
+       pick_display(1);
+       chose_digit(disp1);
+       delayMicroseconds(1600);
+       clearLEDs();
+       pick_display(2);
+       chose_digit(disp2);
+       delayMicroseconds(1600);
+       clearLEDs();
+       pick_display(3);
+       chose_digit(disp3);
+       delayMicroseconds(1600);
+       clearLEDs();
+       pick_display(4);
+       chose_digit(disp4);
+       delayMicroseconds(1600);
+       pick_display(5);
+       chose_digit(disp5);
+       delayMicroseconds(1600);
+       pick_display(6);
+       chose_digit(disp6);
+       delayMicroseconds(1600);      
      }
   }
-}*/
+}
 
 void pick_display(int digit) {
   digitalWrite(d1, LOW);
@@ -250,60 +323,4 @@ void clearLEDs() {
   digitalWrite(e,LOW);
   digitalWrite(f,LOW);
   digitalWrite(g,LOW);
-}
-
-void loop() {
-  for(k = 0; k <= 10; k++) { 
-    if(k == 1){
-      k = 0;
-      disp1++;
-    }
-    clearLEDs();
-    pick_display(1);
-    chose_digit(disp1);
-    delayMicroseconds(1600);
-    if(disp1 == 10){
-      disp1 = 0;
-      disp2++;
-    }
-    clearLEDs();
-    pick_display(2);
-    chose_digit(disp2);
-    delayMicroseconds(1600);
-    if(disp2 == 10) {
-      disp2 = 0;
-      disp3++;
-    }
-    clearLEDs();
-    pick_display(3);
-    chose_digit(disp3);
-    delayMicroseconds(1600);
-    if(disp3 == 10) {
-      disp3 = 0;
-      disp4++;
-    }
-    clearLEDs();
-    pick_display(4);
-    chose_digit(disp4);
-    delayMicroseconds(1600);
-    if (disp4 == 6) {
-       disp4 = 0;
-       disp5++;
-    }
-    clearLEDs();
-    pick_display(5);
-    chose_digit(disp5);
-    delayMicroseconds(1600);
-    if (disp5 == 10) {
-       disp5 = 0;
-       disp6++;
-    }
-    clearLEDs();
-    pick_display(6);
-    chose_digit(disp6);
-    delayMicroseconds(1600);
-    if(disp6 == 6) {
-      disp6 = 0;
-    }
-  }
 }

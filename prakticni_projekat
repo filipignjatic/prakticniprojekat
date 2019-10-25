@@ -21,13 +21,13 @@ const int buttonLap = 18;
 const int buttonLapShow = 19;
 int loadstart, loadstop, loadreset, loadlap, showlap, nextbt;
 
-int lastButtonState;
-int shbt;
+int lapstate = 0;
+int input = 0;
 
-int lapniz1[6];
-int lapniz2[6];
-int lapniz3[6];
-int lapniz4[6];
+int lapniz1[6] = {1};
+int lapniz2[6] = {2};
+int lapniz3[6] = {3};
+int lapniz4[6] = {4};
 //int disp1, disp2, disp3, disp4, disp5, disp6;
 
 
@@ -72,14 +72,14 @@ void loop() {
      if(loadreset == HIGH){
         nextbt = 0;
      }
-     if(loadlap == HIGH){
+     /*if(loadlap == HIGH){
         for(int i = 0; i < 7; i++){
           lapniz4[i] = lapniz3[i];
           lapniz3[i] = lapniz2[i];
           lapniz2[i] = lapniz1[i];
           lapniz1[i] = dispniz[i];
         }
-      }
+      }*/
       dispniz[0]++;
       for(int i = 0; i < 6; i++){
          clearLEDs();
@@ -122,6 +122,9 @@ void loop() {
          delayMicroseconds(1550);
      }
   }
+  else if (nextbt == 3){
+     clearLEDs(); // U doradi...
+  }
   else
   {
     if(loadstart == HIGH){
@@ -138,26 +141,10 @@ void loop() {
         pick_display(i);
         chose_digit(dispniz[i]);
         delayMicroseconds(1550);
-    }    
-    if (showlap != lastButtonState) {
-        if (showlap == HIGH) {
-            shbt++;
-         }
-     }
-     lastButtonState = showlap;
-     if(shbt == 1){
-         chose_lap(1);
-     }
-     else if(shbt == 2){
-        chose_lap(2);
-     }
-     else if(shbt = 3){
-        chose_lap(3);
-     }
-     else {
-       chose_lap(4);
-       shbt = 0;
-     }
+    }
+    if(showlap == HIGH){
+      nextbt = 3;
+    }
   }
 }
 
@@ -192,8 +179,8 @@ void pick_display(int digit) {
   
 }
 
-void chose_lap(int num) {
-  switch(num) {
+void chose_lap() {
+  switch(lapstate) {
     case 1:
       for(int i = 0; i < 6; i++){
         clearLEDs();

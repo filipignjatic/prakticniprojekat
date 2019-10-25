@@ -130,13 +130,8 @@ void loop() {
     if(loadstart == HIGH){
          nextbt = 1;
     }
-    dispniz[0] = 0;
-    dispniz[1] = 0;
-    dispniz[2] = 0;
-    dispniz[3] = 0;
-    dispniz[4] = 0;
-    dispniz[5] = 0;
     for(int i = 0; i < 6; i++){
+        dispniz[i] = 0;
         clearLEDs();
         pick_display(i);
         chose_digit(dispniz[i]);

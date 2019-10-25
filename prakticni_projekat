@@ -6,6 +6,7 @@ int e = 6;
 int d = 7;
 int c = 8;
 
+int dispniz[6];
 int d1 = 16;
 int d2 = 17;
 int d3 = 12;
@@ -17,10 +18,17 @@ const int buttonStart = 9;
 const int buttonStop = 10;
 const int buttonReset = 11;
 const int buttonLap = 18;
-int loadstart, loadstop, loadreset,loadlap, nextbt;
+const int buttonLapShow = 19;
+int loadstart, loadstop, loadreset, loadlap, showlap, nextbt;
 
-int k;
-int disp1, disp2, disp3, disp4, disp5, disp6;
+int lastButtonState;
+int shbt;
+
+int lapniz1[6];
+int lapniz2[6];
+int lapniz3[6];
+int lapniz4[6];
+//int disp1, disp2, disp3, disp4, disp5, disp6;
 
 
 void setup() {
@@ -42,6 +50,7 @@ void setup() {
   pinMode(buttonStop, INPUT);
   pinMode(buttonReset, INPUT);
   pinMode(buttonLap, INPUT);
+  pinMode(buttonLapShow, INPUT);
 
 }
 
@@ -51,130 +60,103 @@ void loop() {
   loadstop = digitalRead(buttonStop);
   loadreset = digitalRead(buttonReset);
   loadlap = digitalRead(buttonLap);
+  showlap = digitalRead(buttonLapShow);
   if(loadstart == HIGH){
     nextbt = 1;
   }
-  for(k = 0; k <= 10; k++) { 
-    if(nextbt == 1)
-    {
-        if(loadstop == HIGH){
-          nextbt = 2;
-          break;
-        }
-        if(loadreset == HIGH){
-          nextbt = 0;
-          break;
-        }
-        disp1++;
-        clearLEDs();
-        pick_display(1);
-        chose_digit(disp1);
-        delayMicroseconds(1600);
-        if(k == 10){
-          disp1 = 0;
-          disp2++;
-        }
-        clearLEDs();
-        pick_display(2);
-        chose_digit(disp2);
-        delayMicroseconds(1600);
-        if(disp2 == 10) {
-          disp2 = 0;
-          disp3++;
-        }
-        clearLEDs();
-        pick_display(3);
-        chose_digit(disp3);
-        delayMicroseconds(1600);
-        if(disp3 == 10) {
-          disp3 = 0;
-          disp4++;
-        }
-        clearLEDs();
-        pick_display(4);
-        chose_digit(disp4);
-        delayMicroseconds(1600);
-        if (disp4 == 6) {
-          disp4 = 0;
-          disp5++;
-        }
-        clearLEDs();
-        pick_display(5);
-        chose_digit(disp5);
-        delayMicroseconds(1600);
-        if (disp5 == 10) {
-          disp5 = 0;
-          disp6++;
-        }
-        clearLEDs();
-        pick_display(6);
-        chose_digit(disp6);
-        delayMicroseconds(1600);
-        if(disp6 == 6) {
-          disp6 = 0;
-        }
+  if(nextbt == 1)
+  {
+    if(loadstop == HIGH){
+       nextbt = 2;
      }
-     else if (nextbt == 2){
-       if(loadreset == HIGH){
-          nextbt = 0;
-          break;
-       }
-       pick_display(1);
-       chose_digit(disp1);
-       delayMicroseconds(1600);
-       clearLEDs();
-       pick_display(2);
-       chose_digit(disp2);
-       delayMicroseconds(1600);
-       clearLEDs();
-       pick_display(3);
-       chose_digit(disp3);
-       delayMicroseconds(1600);
-       clearLEDs();
-       pick_display(4);
-       chose_digit(disp4);
-       delayMicroseconds(1600);
-       pick_display(5);
-       chose_digit(disp5);
-       delayMicroseconds(1600);
-       pick_display(6);
-       chose_digit(disp6);
-       delayMicroseconds(1600);
+     if(loadreset == HIGH){
+        nextbt = 0;
      }
-     else
-     {
-       if(loadstart == HIGH)
-       {
-          nextbt = 1;
-          break;
-       }
-       disp1 = 0;
-       disp2 = 0;
-       disp3 = 0;
-       disp4 = 0;
-       disp5 = 0;
-       disp6 = 0;
-       pick_display(1);
-       chose_digit(disp1);
-       delayMicroseconds(1600);
-       clearLEDs();
-       pick_display(2);
-       chose_digit(disp2);
-       delayMicroseconds(1600);
-       clearLEDs();
-       pick_display(3);
-       chose_digit(disp3);
-       delayMicroseconds(1600);
-       clearLEDs();
-       pick_display(4);
-       chose_digit(disp4);
-       delayMicroseconds(1600);
-       pick_display(5);
-       chose_digit(disp5);
-       delayMicroseconds(1600);
-       pick_display(6);
-       chose_digit(disp6);
-       delayMicroseconds(1600);      
+     if(loadlap == HIGH){
+        for(int i = 0; i < 7; i++){
+          lapniz4[i] = lapniz3[i];
+          lapniz3[i] = lapniz2[i];
+          lapniz2[i] = lapniz1[i];
+          lapniz1[i] = dispniz[i];
+        }
+      }
+      dispniz[0]++;
+      for(int i = 0; i < 6; i++){
+         clearLEDs();
+         pick_display(i);
+         chose_digit(dispniz[i]);
+         delayMicroseconds(1550);
+      }
+      if(dispniz[0] == 10){
+          dispniz[0] = 0;
+          dispniz[1]++;
+      }
+      if(dispniz[1] == 10) {
+          dispniz[1] = 0;
+          dispniz[2]++;
+      }
+      if(dispniz[2] == 10) {
+          dispniz[2] = 0;
+          dispniz[3]++;
+      }
+      if(dispniz[3] == 6) {
+           dispniz[3] = 0;
+           dispniz[4]++;
+      }
+      if(dispniz[4] == 10) {
+           dispniz[4] = 0;
+           dispniz[5]++;
+      }
+      if(dispniz[5] == 6) {
+          dispniz[5] = 0;
+      }
+  }
+  else if (nextbt == 2){
+    if(loadreset == HIGH){
+        nextbt = 0;
+     }
+     for(int i = 0; i < 6; i++){
+         clearLEDs();
+         pick_display(i);
+         chose_digit(dispniz[i]);
+         delayMicroseconds(1550);
+     }
+  }
+  else
+  {
+    if(loadstart == HIGH){
+         nextbt = 1;
+    }
+    dispniz[0] = 0;
+    dispniz[1] = 0;
+    dispniz[2] = 0;
+    dispniz[3] = 0;
+    dispniz[4] = 0;
+    dispniz[5] = 0;
+    for(int i = 0; i < 6; i++){
+        clearLEDs();
+        pick_display(i);
+        chose_digit(dispniz[i]);
+        delayMicroseconds(1550);
+    }    
+    if (showlap != lastButtonState) {
+        if (showlap == HIGH) {
+            shbt++;
+         }
+     }
+     lastButtonState = showlap;
+     if(shbt == 1){
+         chose_lap(1);
+     }
+     else if(shbt == 2){
+        chose_lap(2);
+     }
+     else if(shbt = 3){
+        chose_lap(3);
+     }
+     else {
+       chose_lap(4);
+       shbt = 0;
      }
   }
 }
@@ -188,26 +170,63 @@ void pick_display(int digit) {
   digitalWrite(d6, LOW);
 
   switch(digit){
-  case 1:
+  case 0:
       digitalWrite(d1, HIGH);
       break;
-   case 2:
+   case 1:
       digitalWrite(d2, HIGH);
       break;
-   case 3:
+   case 2:
       digitalWrite(d3, HIGH);
       break;
-   case 4:
+   case 3:
       digitalWrite(d4, HIGH);
       break;
-   case 5:
+   case 4:
       digitalWrite(d5, HIGH);
       break;
-   default:
+   case 5:
       digitalWrite(d6, HIGH);
       break;
   }
   
+}
+
+void chose_lap(int num) {
+  switch(num) {
+    case 1:
+      for(int i = 0; i < 6; i++){
+        clearLEDs();
+        pick_display(i);
+        chose_digit(lapniz1[i]);
+        delayMicroseconds(1550);
+      }
+      break;
+    case 2:
+      for(int i = 0; i < 6; i++){
+        clearLEDs();
+        pick_display(i);
+        chose_digit(lapniz2[i]);
+        delayMicroseconds(1550);
+      }
+      break;
+    case 3:
+      for(int i = 0; i < 6; i++){
+        clearLEDs();
+        pick_display(i);
+        chose_digit(lapniz3[i]);
+        delayMicroseconds(1550);
+      }
+      break;
+    case 4:
+      for(int i = 0; i < 6; i++){
+        clearLEDs();
+        pick_display(i);
+        chose_digit(lapniz4[i]);
+        delayMicroseconds(1550);
+      }
+      break;
+  }
 }
 
 void chose_digit(char num) {

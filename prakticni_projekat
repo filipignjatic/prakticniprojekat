@@ -21,14 +21,11 @@ const int buttonLap = 18;
 const int buttonLapShow = 19;
 int loadstart, loadstop, loadreset, loadlap, showlap, nextbt;
 
-int lapstate = 0;
-int input = 0;
 
 int lapniz1[6] = {1};
 int lapniz2[6] = {2};
 int lapniz3[6] = {3};
 int lapniz4[6] = {4};
-//int disp1, disp2, disp3, disp4, disp5, disp6;
 
 
 void setup() {

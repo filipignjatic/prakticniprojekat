@@ -149,7 +149,6 @@ void loop() {
     }
     if(loadlap == HIGH) {
       btstate = 3;
-      clearLEDs();
     }
   }
 }

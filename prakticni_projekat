@@ -120,7 +120,6 @@ void loop() {
   else if (btstate == 3) {
      if(loadlap == HIGH) {
         dugme++;
-        delayMicroseconds(1550);
      }
      if(dugme == 1) {
       chose_lap(1);

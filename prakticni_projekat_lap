@@ -19,7 +19,9 @@ const int buttonStop = 10;
 const int buttonReset = 11;
 const int buttonLap = 19;
 int loadstart, loadstop, loadreset, loadlap, btstate;
-int dugme, dugmeprovera;
+int dugme;
+int lapcheck = 1;
+int lapcheck1;
 
 
 int lapniz1[6];
@@ -118,25 +120,36 @@ void loop() {
      }
   }
   else if (btstate == 3) {
-     if(loadlap == HIGH && dugmeprovera == 1) {
+     if(loadlap == HIGH && lapcheck == 1) {
         dugme++;
-        dugmeprovera = 0;
-     }
-     if(dugme == 1) {
-      chose_lap(1);
-     }
-     else if(dugme == 2) {
-      chose_lap(2);
-     }
-     else if(dugme == 3) {
-      chose_lap(3);
-     }
-     else if(dugme == 4){
-      chose_lap(4);
-      dugme = 1;
+        lapcheck = 0;
+        lapcheck1 = 1;
      }
      else {
-      dugmeprovera = 1;
+      lapcheck = 1;
+     }
+     if(dugme >= 5 && dugme <= 10) {
+      chose_lap(1);
+     }
+     else if(dugme <=  15) {
+      chose_lap(2);
+     }
+     else if(dugme <=  20) {
+      chose_lap(3);
+     }
+     else if(dugme <=  25){
+      chose_lap(4);
+     }
+     else if(dugme > 25) {
+      dugme = 0;
+     }
+     else {
+        for (int i = 0; i < 6; i++) {
+        clearLEDs();
+        pick_display(i);
+        chose_digit(0);
+        delayMicroseconds(1550);
+        }
      }
   }
   else

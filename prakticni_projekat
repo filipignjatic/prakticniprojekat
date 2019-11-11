@@ -1,27 +1,26 @@
-const int g = 2;
-const int f = 3;
-const int a = 4;
-const int b = 5;
-const int e = 6;
-const int d = 7;
+const int g = 14;
+const int f = 13;
+const int a = 12;
+const int b = 11;
+const int e = 10;
+const int d = 9;
 const int c = 8;
 
-int dispniz[6];
-const int d1 = 16;
-const int d2 = 17;
-const int d3 = 12;
-const int d4 = 13;
-const int d5 = 14;
-const int d6 = 15;
+const int d1 = 2;
+const int d2 = 3;
+const int d3 = 4;
+const int d4 = 5;
+const int d5 = 6;
+const int d6 = 7;
 
-const int buttonStart = 9;
-const int buttonStop = 10;
-const int buttonReset = 11;
+const int buttonStart = 15;
+const int buttonStop = 16;
+const int buttonReset = 17;
 const int buttonLap = 19;
 int loadstart, loadstop, loadreset, loadlap, btstate;
 int dugme, newstate;
 
-
+int dispniz[6];
 int lapniz1[6];
 int lapniz2[6];
 int lapniz3[6];
@@ -47,6 +46,7 @@ void setup() {
   pinMode(buttonStop, INPUT);
   pinMode(buttonReset, INPUT);
   pinMode(buttonLap, INPUT_PULLUP);
+  Serial.begin(9600);
 
 }
 
@@ -77,6 +77,7 @@ void loop() {
           }
         }
      }
+     printf("stisnuto ", loadlap);
      newstate = loadlap;
       dispniz[0]++;
       for (int i = 0; i < 6; i++) {

@@ -46,8 +46,6 @@ void setup() {
   pinMode(buttonStop, INPUT);
   pinMode(buttonReset, INPUT);
   pinMode(buttonLap, INPUT_PULLUP);
-  Serial.begin(9600);
-
 }
 
 
